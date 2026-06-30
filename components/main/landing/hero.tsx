@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import Link from "next/link";
@@ -21,14 +22,58 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center gap-10 px-4 pb-16 pt-28 sm:px-6 lg:flex-row lg:gap-8 lg:pt-32"
+      className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center gap-10 px-4 pb-16 pt-28 sm:px-6 lg:flex-row lg:gap-6 lg:pt-32"
     >
+      {/* Animaciones en loop infinito: CSS puro, fuera del main thread de React */}
+      <style>{`
+        @keyframes hero-float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-14px); }
+        }
+        @keyframes hero-orbit {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        @keyframes hero-orbit-counter {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(-360deg); }
+        }
+        @keyframes hero-twinkle-a {
+          0%, 100% { opacity: 0.5; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.4); }
+        }
+        @keyframes hero-twinkle-b {
+          0%, 100% { opacity: 0.4; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.3); }
+        }
+        .hero-float {
+          animation: hero-float 6s ease-in-out infinite;
+          will-change: transform;
+        }
+        .hero-orbit-ring {
+          animation: hero-orbit 18s linear infinite;
+          will-change: transform;
+        }
+        .hero-orbit-planet {
+          animation: hero-orbit-counter 18s linear infinite;
+          will-change: transform;
+        }
+        .hero-twinkle-a {
+          animation: hero-twinkle-a 3s ease-in-out infinite;
+          will-change: transform, opacity;
+        }
+        .hero-twinkle-b {
+          animation: hero-twinkle-b 4s ease-in-out infinite 1s;
+          will-change: transform, opacity;
+        }
+      `}</style>
+
       {/* Texto */}
       <motion.div
         initial={{ opacity: 0, x: -40 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, ease }}
-        className="w-full max-w-xl text-center lg:text-left"
+        className="w-full max-w-xl text-center lg:w-[44%] lg:max-w-none lg:text-left"
       >
         <motion.span
           initial={{ opacity: 0, y: 12 }}
@@ -87,73 +132,36 @@ export function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Visual con planeta en órbita */}
+      {/* Visual con planeta en órbita — más grande y protagonista */}
       <motion.div
         initial={{ opacity: 0, scale: 0.85 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.9, delay: 0.2, ease }}
-        className="relative flex w-full max-w-md items-center justify-center"
+        className="relative flex w-full items-center justify-center lg:w-[56%]"
       >
-        <div className="relative aspect-square w-full max-w-sm">
-          <div className="absolute inset-[8%] rounded-full bg-linear-to-br from-gold/20 to-transparent blur-2xl" />
-
+        <div className="relative aspect-square w-full max-w-md sm:max-w-lg lg:max-w-2xl">
+          <div className="absolute inset-[8%] rounded-full bg-linear-to-br from-gold/25 to-transparent blur-2xl" />
           <div className="absolute inset-0 rounded-full border border-gold/15" />
           <div className="absolute inset-[14%] rounded-full border border-sky/10" />
-
-          <motion.img
+          <img
             src="/images/hero-little-prince.png"
             alt={t("hero.title")}
-            className="absolute inset-[10%] h-[80%] w-[80%] object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.45)]"
-            animate={{ y: [0, -14, 0] }}
-            transition={{
-              duration: 6,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
+            className="hero-float absolute inset-[10%] h-[80%] w-[80%] object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.45)]"
           />
-
-          <motion.div
-            className="absolute inset-0"
-            animate={{ rotate: 360 }}
-            transition={{
-              duration: 18,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
-            }}
-          >
-            <motion.img
+          <div className="hero-orbit-ring absolute inset-0">
+            <img
               src="/images/orbit-planet.png"
               alt=""
               aria-hidden="true"
-              className="absolute -top-6 left-1/2 h-20 w-20 -translate-x-1/2 object-contain drop-shadow-lg sm:h-24 sm:w-24"
-              animate={{ rotate: -360 }}
-              transition={{
-                duration: 18,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "linear",
-              }}
+              className="hero-orbit-planet absolute -top-7 left-1/2 h-24 w-24 -translate-x-1/2 object-contain drop-shadow-lg sm:h-28 sm:w-28 lg:h-32 lg:w-32"
             />
-          </motion.div>
-
-          <motion.span
-            className="absolute -right-2 top-1/4 text-gold"
-            animate={{ scale: [1, 1.4, 1], opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
-          >
+          </div>
+          <span className="hero-twinkle-a absolute -right-2 top-1/4 text-gold">
             <Star className="h-5 w-5 fill-gold" />
-          </motion.span>
-
-          <motion.span
-            className="absolute bottom-6 -left-2 text-gold-soft"
-            animate={{ scale: [1, 1.3, 1], opacity: [0.4, 1, 0.4] }}
-            transition={{
-              duration: 4,
-              repeat: Number.POSITIVE_INFINITY,
-              delay: 1,
-            }}
-          >
+          </span>
+          <span className="hero-twinkle-b absolute bottom-6 -left-2 text-gold-soft">
             <Sparkles className="h-6 w-6" />
-          </motion.span>
+          </span>
         </div>
       </motion.div>
     </section>

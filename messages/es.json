@@ -6,7 +6,11 @@
          "fox":"El zorro",
          "map":"Mapa",
          "depart":"Despegar",
-         "backHome":"Volver al inicio"
+         "backHome":"Volver al inicio",
+         "changeLanguage": "Change language",
+         "openMenu": "Open menu",
+         "closeMenu": "Close menu",
+         "mobileNavLabel": "Mobile navigation"
       },
       "hero":{
          "badge":"Un viaje entre las estrellas",

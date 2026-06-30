@@ -1,225 +1,229 @@
 {
-   "LandingPage":{
-      "nav":{
-         "home":"Inicio",
-         "journey":"El viaje",
-         "fox":"El zorro",
-         "map":"Mapa",
-         "depart":"Despegar",
-         "backHome":"Volver al inicio"
+  "LandingPage": {
+    "nav": {
+      "home": "Home",
+      "journey": "The Journey",
+      "fox": "The Fox",
+      "map": "Map",
+      "depart": "Launch",
+      "backHome": "Back to Home",
+      "changeLanguage": "Change language",
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu",
+      "mobileNavLabel": "Mobile navigation"
+    },
+    "hero": {
+      "badge": "A Journey Among the Stars",
+      "title": "EVA — Between Worlds",
+      "subtitle": "A journey through words and the stars",
+      "quote": "What is essential is invisible to the eye.",
+      "lead": "This journey begins by reading with your heart. Join the Little Prince from planet to planet and strengthen your reading comprehension.",
+      "ctaPrimary": "Start the Journey",
+      "ctaSecondary": "View the Star Map"
+    },
+    "modulesSection": {
+      "badge": "Star Route",
+      "title": "Seven Planets to Discover",
+      "subtitle": "Each planet tells a new story. Choose one to begin exploring.",
+      "explore": "Explore",
+      "cardsLabel": "What You'll Find Here"
+    },
+    "foxSection": {
+      "badge": "Your Guide",
+      "title": "The Fox Is With You",
+      "quote": "You become responsible, forever, for what you have tamed.",
+      "body": "In every activity, the fox narrator will give you clues, words of encouragement, and questions to help you think without writing the answer for you. Read carefully: what is essential is seen with the heart."
+    },
+    "footer": {
+      "tagline": "A literary journey inspired by The Little Prince.",
+      "audience": "For 6th and 7th grade students.",
+      "rights": "Made with care among the stars."
+    },
+    "module": {
+      "narratorLabel": "The Fox Says",
+      "cardsTitle": "Stations on This Planet",
+      "start": "Start",
+      "prev": "Previous Planet",
+      "next": "Next Planet",
+      "backToMap": "Back to the Map"
+    },
+    "types": {
+      "material": "Material",
+      "task": "Task",
+      "activity": "Activity",
+      "exploration": "Exploration",
+      "reflection": "Reflection",
+      "game": "Game",
+      "quiz": "Assessment",
+      "wordsearch": "Word Search",
+      "project": "Project",
+      "gallery": "Gallery"
+    },
+    "map": {
+      "badge": "Your Journey Map",
+      "title": "EVA's Solar System",
+      "subtitle": "Each planet hides a different story. Which one shall we visit today?",
+      "land": "Land Here"
+    },
+    "modules": {
+      "bienvenida": {
+        "module": "Module 1",
+        "planet": "The Airfield",
+        "title": "Welcome: Begin the Adventure",
+        "narration": "\"That was how I made the acquaintance of the little prince.\" The fox is waiting to begin the journey.",
+        "scene": "A small airfield in the desert at sunset, with the pilot's airplane under repair.",
+        "cards": [
+          {
+            "title": "Welcome to EVA — Between Worlds",
+            "type": "material",
+            "desc": "Meet your guide and get ready for takeoff."
+          },
+          {
+            "title": "Initial Assessment",
+            "type": "task",
+            "desc": "A short questionnaire about your reading interests."
+          }
+        ]
       },
-      "hero":{
-         "badge":"Un viaje entre las estrellas",
-         "title":"EVA — Entre Mundos",
-         "subtitle":"Un viaje a través de las palabras y las estrellas",
-         "quote":"Lo esencial es invisible a los ojos.",
-         "lead":"Así comienza este viaje: leyendo con el corazón. Acompaña al Principito de planeta en planeta y fortalece tu comprensión lectora.",
-         "ctaPrimary":"Comenzar el viaje",
-         "ctaSecondary":"Ver el mapa estelar"
+      "modulo-2-el-principito": {
+        "module": "Module 2",
+        "planet": "Asteroid B-612",
+        "title": "The World of The Little Prince",
+        "narration": "\"Then I had a second reason to admire the little prince.\" We are landing on his home.",
+        "scene": "The tiny asteroid B-612 with its volcano, the miniature baobab, and the rose beneath its glass globe.",
+        "cards": [
+          {
+            "title": "Interactive Graphic Novel",
+            "type": "material",
+            "desc": "A story to see and feel, panel by panel."
+          },
+          {
+            "title": "Reading Comprehension",
+            "type": "activity",
+            "desc": "What do you remember about Asteroid B-612?"
+          },
+          {
+            "title": "Explore the Asteroid",
+            "type": "exploration",
+            "desc": "Discover the volcano, the baobab, and the rose."
+          },
+          {
+            "title": "Reflection Question",
+            "type": "reflection",
+            "desc": "Think about your own rose."
+          }
+        ]
       },
-      "modulesSection":{
-         "badge":"Ruta estelar",
-         "title":"Siete planetas por descubrir",
-         "subtitle":"Cada planeta es una nueva historia. Toca uno para empezar a explorar.",
-         "explore":"Explorar",
-         "cardsLabel":"Lo que encontrarás aquí"
+      "modulo-3-conceptos": {
+        "module": "Module 3",
+        "planet": "Planet of Books",
+        "title": "Concepts: Discover Literature",
+        "narration": "\"Here, every book is a different star.\" Welcome to the Planet of Books.",
+        "scene": "A planet covered with bookshelves and floating books, illuminated by glowing lampposts.",
+        "cards": [
+          {
+            "title": "What Is Literature?",
+            "type": "material",
+            "desc": "The art of telling stories with words."
+          },
+          {
+            "title": "Classification",
+            "type": "activity",
+            "desc": "Sort the literary stars."
+          }
+        ]
       },
-      "foxSection":{
-         "badge":"Tu guía",
-         "title":"El zorro te acompaña",
-         "quote":"Eres responsable para siempre de lo que has domesticado.",
-         "body":"En cada actividad, el zorro narrador te dará pistas, palabras de ánimo y preguntas para pensar, sin escribir la respuesta por ti. Léelo con calma: lo esencial se ve con el corazón."
+      "modulo-4-glosario": {
+        "module": "Module 4",
+        "planet": "Garden of Words",
+        "title": "Interactive Visual Glossary",
+        "narration": "\"Words, like roses, must also be watered so they can grow.\"",
+        "scene": "A garden filled with colorful flowers, where every flower represents a new word.",
+        "cards": [
+          {
+            "title": "Glossary",
+            "type": "material",
+            "desc": "The garden of new words."
+          },
+          {
+            "title": "Match the Words",
+            "type": "activity",
+            "desc": "Match each word to its flower."
+          },
+          {
+            "title": "Creative Writing",
+            "type": "activity",
+            "desc": "Plant your own words."
+          },
+          {
+            "title": "Find The Little Prince's Words",
+            "type": "wordsearch",
+            "desc": "A stellar word search."
+          }
+        ]
       },
-      "footer":{
-         "tagline":"Un viaje literario inspirado en El Principito.",
-         "audience":"Para estudiantes de 6° y 7° grado.",
-         "rights":"Hecho con cariño entre las estrellas."
+      "modulo-5-retos": {
+        "module": "Module 5",
+        "planet": "Star Station",
+        "title": "Challenge Center: Literary Adventures",
+        "narration": "\"All the stars are softly lit, as if they were shining just for me.\"",
+        "scene": "A floating space station surrounded by constellations, each representing a challenge.",
+        "cards": [
+          {
+            "title": "Interactive Game",
+            "type": "game",
+            "desc": "The Race Across the Six Planets."
+          },
+          {
+            "title": "Reading Quiz",
+            "type": "quiz",
+            "desc": "Put your reading compass to the test."
+          }
+        ]
       },
-      "module":{
-         "narratorLabel":"El zorro dice",
-         "cardsTitle":"Estaciones de este planeta",
-         "start":"Comenzar",
-         "prev":"Planeta anterior",
-         "next":"Siguiente planeta",
-         "backToMap":"Volver al mapa"
+      "modulo-6-proyecto": {
+        "module": "Module 6",
+        "planet": "My Own Planet",
+        "title": "Creative Project: Your Own Story",
+        "narration": "\"Draw me a planet.\" Now it's your turn to create one.",
+        "scene": "A planet that students will gradually color and populate with their creative project.",
+        "cards": [
+          {
+            "title": "Project Guide",
+            "type": "material",
+            "desc": "How to build your own planet of stories."
+          },
+          {
+            "title": "My Planet, My Story",
+            "type": "project",
+            "desc": "Combine text, drawings, and audio."
+          }
+        ]
       },
-      "types":{
-         "material":"Material",
-         "task":"Tarea",
-         "activity":"Actividad",
-         "exploration":"Exploración",
-         "reflection":"Reflexión",
-         "game":"Juego",
-         "quiz":"Evaluación",
-         "wordsearch":"Sopa de letras",
-         "project":"Proyecto",
-         "gallery":"Galería"
-      },
-      "map":{
-         "badge":"Tu mapa de viaje",
-         "title":"El sistema solar de EVA",
-         "subtitle":"Cada planeta esconde una historia distinta. ¿A cuál viajamos hoy?",
-         "land":"Aterrizar aquí"
-      },
-      "modules":{
-         "bienvenida":{
-            "module":"Módulo 1",
-            "planet":"El Aeródromo",
-            "title":"Bienvenida: inicia la aventura",
-            "narration":"«Así fue como conocí al principito». El zorro te espera para comenzar el viaje.",
-            "scene":"Un pequeño aeródromo en el desierto al atardecer, con el avión del aviador en reparación.",
-            "cards":[
-               {
-                  "title":"Bienvenidos a EVA — Entre Mundos",
-                  "type":"material",
-                  "desc":"Conoce a tu guía y prepárate para despegar."
-               },
-               {
-                  "title":"Diagnóstico inicial",
-                  "type":"task",
-                  "desc":"Un cuestionario corto sobre tus gustos de lectura."
-               }
-            ]
-         },
-         "modulo-2-el-principito":{
-            "module":"Módulo 2",
-            "planet":"Asteroide B-612",
-            "title":"El mundo de El Principito",
-            "narration":"«Tuve así un segundo motivo de admiración por el principito». Aterrizamos en su hogar.",
-            "scene":"El pequeño asteroide B-612 con su volcán, el baobab en miniatura y la rosa bajo su fanal de cristal.",
-            "cards":[
-               {
-                  "title":"Novela gráfica interactiva",
-                  "type":"material",
-                  "desc":"Una historia para mirar y sentir, panel a panel."
-               },
-               {
-                  "title":"Comprensión inicial",
-                  "type":"activity",
-                  "desc":"¿Qué recuerdas del asteroide B-612?"
-               },
-               {
-                  "title":"Exploración del asteroide",
-                  "type":"exploration",
-                  "desc":"Recorre el volcán, el baobab y la rosa."
-               },
-               {
-                  "title":"Pregunta de reflexión",
-                  "type":"reflection",
-                  "desc":"Piensa en tu propia rosa."
-               }
-            ]
-         },
-         "modulo-3-conceptos":{
-            "module":"Módulo 3",
-            "planet":"Planeta de los Libros",
-            "title":"Conceptos: descubre la literatura",
-            "narration":"«Aquí cada libro es una estrella distinta». Bienvenido al Planeta de los Libros.",
-            "scene":"Un planeta cubierto de estanterías y libros flotantes, con farolas encendidas.",
-            "cards":[
-               {
-                  "title":"¿Qué es la literatura?",
-                  "type":"material",
-                  "desc":"El arte de contar historias con palabras."
-               },
-               {
-                  "title":"Clasificación",
-                  "type":"activity",
-                  "desc":"Ordena las estrellas literarias."
-               }
-            ]
-         },
-         "modulo-4-glosario":{
-            "module":"Módulo 4",
-            "planet":"Jardín de Palabras",
-            "title":"Glosario visual interactivo",
-            "narration":"«Las palabras, como las rosas, también hay que regarlas para que crezcan».",
-            "scene":"Un jardín con flores de distintos colores; cada flor es una palabra nueva.",
-            "cards":[
-               {
-                  "title":"Glosario",
-                  "type":"material",
-                  "desc":"El jardín de las palabras nuevas."
-               },
-               {
-                  "title":"Relaciona",
-                  "type":"activity",
-                  "desc":"Une cada palabra con su flor."
-               },
-               {
-                  "title":"Producción escrita",
-                  "type":"activity",
-                  "desc":"Siembra tus propias palabras."
-               },
-               {
-                  "title":"Encuentra las palabras del Principito",
-                  "type":"wordsearch",
-                  "desc":"Sopa de letras estelar."
-               }
-            ]
-         },
-         "modulo-5-retos":{
-            "module":"Módulo 5",
-            "planet":"Estación de las Estrellas",
-            "title":"Centro de retos: aventuras literarias",
-            "narration":"«Todas las estrellas están encendidas suavemente, como para darme luz».",
-            "scene":"Una estación espacial flotante rodeada de constelaciones; cada una es un reto.",
-            "cards":[
-               {
-                  "title":"Juego interactivo",
-                  "type":"game",
-                  "desc":"La carrera de los seis planetas."
-               },
-               {
-                  "title":"Quiz de comprensión",
-                  "type":"quiz",
-                  "desc":"Pon a prueba tu brújula lectora."
-               }
-            ]
-         },
-         "modulo-6-proyecto":{
-            "module":"Módulo 6",
-            "planet":"Mi Propio Planeta",
-            "title":"Proyecto creativo: tu propia historia",
-            "narration":"«Dibújame un planeta». Ahora te toca a ti crear el tuyo.",
-            "scene":"Un planeta que el estudiante irá coloreando y poblando con su proyecto creativo.",
-            "cards":[
-               {
-                  "title":"Guía del proyecto",
-                  "type":"material",
-                  "desc":"Cómo construir tu propio planeta de historias."
-               },
-               {
-                  "title":"Mi planeta, mi historia",
-                  "type":"project",
-                  "desc":"Combina texto, dibujo y audio."
-               }
-            ]
-         },
-         "modulo-7-cierre":{
-            "module":"Módulo 7",
-            "planet":"El Regreso a Casa",
-            "title":"Cierre: reflexión final",
-            "narration":"«Mira hacia las estrellas. Allí, en alguna de ellas, estaré yo riendo».",
-            "scene":"El desierto al amanecer, con el principito alejándose hacia las estrellas.",
-            "cards":[
-               {
-                  "title":"Evaluación final",
-                  "type":"quiz",
-                  "desc":"El gran viaje: tu crecimiento como lector."
-               },
-               {
-                  "title":"Reflexión",
-                  "type":"reflection",
-                  "desc":"Lo que me llevo de este viaje."
-               },
-               {
-                  "title":"Galería de planetas",
-                  "type":"gallery",
-                  "desc":"Explora los planetas de tus compañeros."
-               }
-            ]
-         }
+      "modulo-7-cierre": {
+        "module": "Module 7",
+        "planet": "The Journey Home",
+        "title": "Closing: Final Reflection",
+        "narration": "\"Look at the stars. Somewhere among them, I shall be laughing.\"",
+        "scene": "The desert at sunrise, with the Little Prince walking back toward the stars.",
+        "cards": [
+          {
+            "title": "Final Assessment",
+            "type": "quiz",
+            "desc": "The great journey: your growth as a reader."
+          },
+          {
+            "title": "Reflection",
+            "type": "reflection",
+            "desc": "What I take away from this journey."
+          },
+          {
+            "title": "Planet Gallery",
+            "type": "gallery",
+            "desc": "Explore your classmates' planets."
+          }
+        ]
       }
-   }
+    }
+  }
 }

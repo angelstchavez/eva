@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
-import { motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useState, useEffect, memo } from "react";
 
 type Star = {
   id: number;
@@ -15,36 +14,67 @@ type Star = {
 
 type Shooting = { id: number; top: number; left: number; delay: number };
 
-export function Starfield() {
-  const [stars, setStars] = useState<Star[]>([]);
-  const [shooting, setShooting] = useState<Shooting[]>([]);
+function generateStars(count: number): Star[] {
+  return Array.from({ length: count }, (_, i) => ({
+    id: i,
+    top: Math.random() * 100,
+    left: Math.random() * 100,
+    size: Math.random() * 2 + 1,
+    delay: Math.random() * 6,
+    duration: Math.random() * 3 + 2,
+  }));
+}
 
-  useEffect(() => {
-    setStars(
-      Array.from({ length: 70 }, (_, i) => ({
-        id: i,
-        top: Math.random() * 100,
-        left: Math.random() * 100,
-        size: Math.random() * 2 + 1,
-        delay: Math.random() * 6,
-        duration: Math.random() * 3 + 2,
-      })),
-    );
-    setShooting(
-      Array.from({ length: 5 }, (_, i) => ({
-        id: i,
-        top: Math.random() * 60 + 5,
-        left: Math.random() * 70 + 5,
-        delay: Math.random() * 14 + 4,
-      })),
-    );
-  }, []);
+function generateShooting(count: number): Shooting[] {
+  return Array.from({ length: count }, (_, i) => ({
+    id: i,
+    top: Math.random() * 60 + 5,
+    left: Math.random() * 70 + 5,
+    delay: Math.random() * 14 + 4,
+  }));
+}
+
+function StarfieldImpl() {
+  const [mounted, setMounted] = useState(false);
+
+  // Generamos una sola vez, no en cada render. useState lazy initializer
+  // evita el cálculo en renders posteriores sin necesitar useEffect+setState.
+  const [stars] = useState<Star[]>(() => generateStars(70));
+  const [shooting] = useState<Shooting[]>(() => generateShooting(5));
+
+  // Solo para evitar mismatch de hydration (server no tiene Math.random consistente).
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
 
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 overflow-hidden"
+      className="pointer-events-none fixed inset-0 overflow-hidden contain-strict"
     >
+      {/* Keyframes CSS puros: animación corre en compositor thread, no en JS */}
+      <style>{`
+        @keyframes sf-twinkle {
+          0%, 100% { opacity: 0.2; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.3); }
+        }
+        @keyframes sf-shoot {
+          0% { transform: translateX(-60px); opacity: 0; }
+          15% { opacity: 1; }
+          85% { opacity: 1; }
+          100% { transform: translateX(160px); opacity: 0; }
+        }
+        .sf-star {
+          animation: sf-twinkle var(--dur) ease-in-out var(--delay) infinite;
+          will-change: opacity, transform;
+        }
+        .sf-shoot {
+          animation: sf-shoot 1.6s ease-out var(--delay) infinite;
+          animation-delay: var(--delay);
+          will-change: transform, opacity;
+        }
+      `}</style>
+
       {/* Degradado base */}
       <div className="absolute inset-0 bg-linear-to-b from-night-deep via-night to-night-soft" />
 
@@ -55,42 +85,41 @@ export function Starfield() {
 
       {/* Estrellas titilantes */}
       {stars.map((s) => (
-        <motion.span
+        <span
           key={`star-${s.id}`}
-          className="absolute rounded-full bg-gold-soft"
-          style={{
-            top: `${s.top}%`,
-            left: `${s.left}%`,
-            width: s.size * 2,
-            height: s.size * 2,
-          }}
-          animate={{ opacity: [0.2, 1, 0.2], scale: [1, 1.3, 1] }}
-          transition={{
-            duration: s.duration,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: s.delay,
-          }}
+          className="sf-star absolute rounded-full bg-gold-soft"
+          style={
+            {
+              top: `${s.top}%`,
+              left: `${s.left}%`,
+              width: s.size * 2,
+              height: s.size * 2,
+              "--dur": `${s.duration}s`,
+              "--delay": `${s.delay}s`,
+            } as React.CSSProperties
+          }
         />
       ))}
 
       {/* Estrellas fugaces */}
       {shooting.map((s) => (
-        <motion.span
+        <span
           key={`shoot-${s.id}`}
-          className="absolute h-px w-24 rounded-full bg-linear-to-r from-transparent via-gold-soft to-transparent"
-          style={{ top: `${s.top}%`, left: `${s.left}%` }}
-          initial={{ x: -60, opacity: 0 }}
-          animate={{ x: 160, opacity: [0, 1, 0] }}
-          transition={{
-            duration: 1.6,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeOut",
-            delay: s.delay,
-            repeatDelay: 9,
-          }}
+          className="sf-shoot absolute h-px w-24 rounded-full bg-linear-to-r from-transparent via-gold-soft to-transparent"
+          style={
+            {
+              top: `${s.top}%`,
+              left: `${s.left}%`,
+              "--delay": `${s.delay}s`,
+              animationDuration: "1.6s",
+              animationIterationCount: "infinite",
+              animationTimingFunction: "ease-out",
+            } as React.CSSProperties
+          }
         />
       ))}
     </div>
   );
 }
+
+export const Starfield = memo(StarfieldImpl);

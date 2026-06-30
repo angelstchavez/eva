@@ -1,0 +1,56 @@
+{
+  "LandingPage": {
+    "common": {
+      "login": "I already have an account",
+      "startJourney": "Start the journey ✶",
+      "learnMore": "Learn about the project",
+      "yesTravel": "Yes, I want to travel ✶"
+    },
+    "header": {
+      "title": "EVA",
+      "subtitle": "Between Worlds"
+    },
+    "hero": {
+      "badge": "For 6th and 7th grade travelers",
+      "title": "A journey through",
+      "titleHighlight": "words and stars",
+      "description": "«What is essential is invisible to the eye». This is how this journey begins: reading with the heart, alongside the little prince and his fox."
+    },
+    "modules": {
+      "title": "Your travel map",
+      "description": "Each planet hides a different story. Which one shall we travel to today?",
+      "planets": {
+        "airfield": {
+          "name": "The Airfield",
+          "module": "Module 1 · Welcome"
+        },
+        "b612": {
+          "name": "Asteroid B-612",
+          "module": "Module 2 · The Little Prince"
+        },
+        "books": {
+          "name": "Planet of Books",
+          "module": "Module 3 · Concepts"
+        },
+        "garden": {
+          "name": "Garden of Words",
+          "module": "Module 4 · Glossary"
+        },
+        "station": {
+          "name": "Station of Stars",
+          "module": "Module 5 · Challenges"
+        },
+        "planet": {
+          "name": "My Own Planet",
+          "module": "Module 6 · Project"
+        }
+      }
+    },
+    "fox": {
+      "quote": "«Hello, traveler of words. Here paths are drawn with stories, and every book is a door to a different planet. Are you ready to take off?»"
+    },
+    "footer": {
+      "text": "EVA — Between Worlds · A virtual learning environment inspired by The Little Prince"
+    }
+  }
+}

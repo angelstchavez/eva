@@ -1,61 +1,52 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
+import { usePathname, useRouter } from "@/i18n/navigation";
+import Es4x3Icon from "@iconify-react/flag/es-4x3";
+import Um4x3Icon from "@iconify-react/flag/um-4x3";
 
-const PLANETAS = [
-  {
-    emoji: "🪐",
-    nombre: "El Aeródromo",
-    modulo: "Módulo 1 · Bienvenida",
-    color: "bg-[#F4ECD8] text-[#7A5C00]",
-  },
-  {
-    emoji: "🌟",
-    nombre: "Asteroide B-612",
-    modulo: "Módulo 2 · El Principito",
-    color: "bg-[#FBE7C6] text-[#7A4B00]",
-  },
-  {
-    emoji: "📚",
-    nombre: "Planeta de los Libros",
-    modulo: "Módulo 3 · Conceptos",
-    color: "bg-[#E3D7F4] text-[#4B2E73]",
-  },
-  {
-    emoji: "🌷",
-    nombre: "Jardín de Palabras",
-    modulo: "Módulo 4 · Glosario",
-    color: "bg-[#FAD6E0] text-[#7A2B45]",
-  },
-  {
-    emoji: "✨",
-    nombre: "Estación de las Estrellas",
-    modulo: "Módulo 5 · Retos",
-    color: "bg-[#CDE7F0] text-[#1B4B5C]",
-  },
-  {
-    emoji: "🌍",
-    nombre: "Mi Propio Planeta",
-    modulo: "Módulo 6 · Proyecto",
-    color: "bg-[#D6EAD3] text-[#27512A]",
-  },
+const PLANET_KEYS = [
+  { key: "airfield", emoji: "🪐", color: "bg-[#F4ECD8] text-[#7A5C00]" },
+  { key: "b612", emoji: "🌟", color: "bg-[#FBE7C6] text-[#7A4B00]" },
+  { key: "books", emoji: "📚", color: "bg-[#E3D7F4] text-[#4B2E73]" },
+  { key: "garden", emoji: "🌷", color: "bg-[#FAD6E0] text-[#7A2B45]" },
+  { key: "station", emoji: "✨", color: "bg-[#CDE7F0] text-[#1B4B5C]" },
+  { key: "planet", emoji: "🌍", color: "bg-[#D6EAD3] text-[#27512A]" },
 ];
 
-const STARS = Array.from({ length: 45 }).map((_, i) => ({
-  id: i,
-  top: Math.random() * 100,
-  left: Math.random() * 100,
-  size: Math.random() * 2 + 1,
-  delay: Math.random() * 4,
-}));
-
 function CieloEstrellado() {
+  const [stars, setStars] = useState<
+    {
+      id: number;
+      top: number;
+      left: number;
+      size: number;
+      delay: number;
+    }[]
+  >([]);
+
+  useEffect(() => {
+    setStars(
+      Array.from({ length: 45 }, (_, i) => ({
+        id: i,
+        top: Math.random() * 100,
+        left: Math.random() * 100,
+        size: Math.random() * 2 + 1,
+        delay: Math.random() * 4,
+      })),
+    );
+  }, []);
+
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {STARS.map((s) => (
+      {stars.map((s) => (
         <motion.span
           key={s.id}
           className="absolute rounded-full bg-[#FDE9B8]"
@@ -91,7 +82,60 @@ function AvionViajero() {
   );
 }
 
+function LanguageSwitcher() {
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const switchLanguage = (newLocale: string) => {
+    router.push(pathname, { locale: newLocale });
+  };
+
+  return (
+    <div className="flex items-center gap-2">
+      <button
+        onClick={() => switchLanguage("es")}
+        className={`flex items-center justify-center rounded-md p-1 transition ${
+          locale === "es"
+            ? "ring-2 ring-[#E8B84B]"
+            : "opacity-70 hover:opacity-100"
+        }`}
+        aria-label="Español"
+      >
+        <Es4x3Icon height="1.5em" />
+      </button>
+
+      <button
+        onClick={() => switchLanguage("en")}
+        className={`flex items-center justify-center rounded-md p-1 transition ${
+          locale === "en"
+            ? "ring-2 ring-[#E8B84B]"
+            : "opacity-70 hover:opacity-100"
+        }`}
+        aria-label="English"
+      >
+        <Um4x3Icon height="1.5em" />
+      </button>
+    </div>
+  );
+}
+
 export default function LandingEva() {
+  const t = useTranslations("LandingPage");
+  const router = useRouter();
+
+  const navigateToLogin = () => {
+    router.push("/login");
+  };
+
+  const navigateToJourney = () => {
+    router.push("/modules");
+  };
+
+  const navigateToProject = () => {
+    router.push("/about");
+  };
+
   return (
     <main className="relative min-h-screen w-full overflow-hidden bg-[#11243F] font-sans text-[#F4ECD8]">
       <div className="absolute inset-0 bg-linear-to-b from-[#0B1830] via-[#16335A] to-[#2E5A8C]" />
@@ -102,15 +146,20 @@ export default function LandingEva() {
         <div className="flex items-center gap-2">
           <span className="text-2xl">🦊</span>
           <span className="font-[Baloo_2] text-lg font-bold tracking-wide">
-            EVA <span className="text-[#E8B84B]">·</span> Entre Mundos
+            {t("header.title")} <span className="text-[#E8B84B]">·</span>{" "}
+            {t("header.subtitle")}
           </span>
         </div>
-        <Button
-          variant="secondary"
-          className="rounded-full bg-[#F4ECD8] text-[#16335A] hover:bg-[#E8B84B] hover:text-[#16335A]"
-        >
-          Ya tengo cuenta
-        </Button>
+        <div className="flex items-center gap-4">
+          <LanguageSwitcher />
+          <Button
+            variant="secondary"
+            className="rounded-full bg-[#F4ECD8] text-[#16335A] hover:bg-[#E8B84B] hover:text-[#16335A]"
+            onClick={navigateToLogin}
+          >
+            {t("common.login")}
+          </Button>
+        </div>
       </header>
 
       {/* HERO */}
@@ -121,7 +170,7 @@ export default function LandingEva() {
           transition={{ duration: 0.8 }}
         >
           <Badge className="mb-6 rounded-full bg-[#E8B84B]/20 px-4 py-1 text-sm font-semibold text-[#FCE2A0] hover:bg-[#E8B84B]/20">
-            Para viajeros de 6° y 7° grado
+            {t("hero.badge")}
           </Badge>
         </motion.div>
 
@@ -131,9 +180,9 @@ export default function LandingEva() {
           transition={{ duration: 0.8, delay: 0.15 }}
           className="font-[Baloo_2] text-4xl font-extrabold leading-tight text-[#FDF6E3] sm:text-5xl md:text-6xl"
         >
-          Un viaje a través de
+          {t("hero.title")}
           <br />
-          <span className="text-[#E8B84B]">las palabras y las estrellas</span>
+          <span className="text-[#E8B84B]">{t("hero.titleHighlight")}</span>
         </motion.h1>
 
         <motion.p
@@ -142,8 +191,7 @@ export default function LandingEva() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="mx-auto mt-6 max-w-xl font-[Lora] text-lg italic text-[#CFE0F0]/90"
         >
-          “Lo esencial es invisible a los ojos.” Así comienza este viaje:
-          leyendo con el corazón, junto al principito y su zorro.
+          {t("hero.description")}
         </motion.p>
 
         <motion.div
@@ -155,15 +203,17 @@ export default function LandingEva() {
           <Button
             size="lg"
             className="rounded-full bg-[#E8B84B] px-8 py-6 text-lg font-bold text-[#16335A] shadow-lg shadow-[#E8B84B]/20 hover:bg-[#FCE2A0]"
+            onClick={navigateToJourney}
           >
-            Comenzar el viaje ✶
+            {t("common.startJourney")}
           </Button>
           <Button
             size="lg"
             variant="ghost"
             className="rounded-full px-8 py-6 text-lg font-semibold text-[#FDF6E3] hover:bg-white/10 hover:text-white"
+            onClick={navigateToProject}
           >
-            Conocer el proyecto
+            {t("common.learnMore")}
           </Button>
         </motion.div>
 
@@ -207,16 +257,16 @@ export default function LandingEva() {
           transition={{ duration: 0.6 }}
           className="mb-2 text-center font-[Baloo_2] text-3xl font-bold text-[#FDF6E3]"
         >
-          Tu mapa de viaje
+          {t("modules.title")}
         </motion.h2>
         <p className="mb-10 text-center text-[#CFE0F0]/80">
-          Cada planeta esconde una historia distinta. ¿A cuál viajamos hoy?
+          {t("modules.description")}
         </p>
 
         <div className="grid grid-cols-2 gap-5 sm:grid-cols-3">
-          {PLANETAS.map((p, i) => (
+          {PLANET_KEYS.map((p, i) => (
             <motion.div
-              key={p.nombre}
+              key={p.key}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
@@ -231,9 +281,11 @@ export default function LandingEva() {
                     {p.emoji}
                   </div>
                   <p className="font-[Baloo_2] text-base font-bold text-[#FDF6E3]">
-                    {p.nombre}
+                    {t(`modules.planets.${p.key}.name`)}
                   </p>
-                  <p className="text-xs text-[#CFE0F0]/70">{p.modulo}</p>
+                  <p className="text-xs text-[#CFE0F0]/70">
+                    {t(`modules.planets.${p.key}.module`)}
+                  </p>
                 </CardContent>
               </Card>
             </motion.div>
@@ -251,19 +303,19 @@ export default function LandingEva() {
         >
           <div className="mb-3 text-4xl">🦊</div>
           <p className="font-[Lora] text-lg italic text-[#FDF6E3]">
-            “Hola, viajero de las palabras. Aquí los caminos se dibujan con
-            historias, y cada libro es una puerta a un planeta distinto. ¿Estás
-            listo para despegar?”
+            {t("fox.quote")}
           </p>
-          <Button className="mt-6 rounded-full bg-[#E8B84B] px-8 text-[#16335A] hover:bg-[#FCE2A0]">
-            Sí, quiero viajar ✶
+          <Button
+            className="mt-6 rounded-full bg-[#E8B84B] px-8 text-[#16335A] hover:bg-[#FCE2A0]"
+            onClick={navigateToJourney}
+          >
+            {t("common.yesTravel")}
           </Button>
         </motion.div>
       </section>
 
       <footer className="relative z-10 border-t border-white/10 px-6 py-6 text-center text-xs text-[#CFE0F0]/60">
-        EVA — Entre Mundos · Un ambiente virtual de aprendizaje inspirado en El
-        Principito
+        {t("footer.text")}
       </footer>
     </main>
   );

@@ -1,0 +1,56 @@
+{
+  "LandingPage": {
+    "common": {
+      "login": "Ya tengo cuenta",
+      "startJourney": "Comenzar el viaje ✶",
+      "learnMore": "Conocer el proyecto",
+      "yesTravel": "Sí, quiero viajar ✶"
+    },
+    "header": {
+      "title": "EVA",
+      "subtitle": "Entre Mundos"
+    },
+    "hero": {
+      "badge": "Para viajeros de 6° y 7° grado",
+      "title": "Un viaje a través de",
+      "titleHighlight": "las palabras y las estrellas",
+      "description": "«Lo esencial es invisible a los ojos». Así comienza este viaje: leyendo con el corazón, junto al principito y su zorro."
+    },
+    "modules": {
+      "title": "Tu mapa de viaje",
+      "description": "Cada planeta esconde una historia distinta. ¿A cuál viajamos hoy?",
+      "planets": {
+        "airfield": {
+          "name": "El Aeródromo",
+          "module": "Módulo 1 · Bienvenida"
+        },
+        "b612": {
+          "name": "Asteroide B-612",
+          "module": "Módulo 2 · El Principito"
+        },
+        "books": {
+          "name": "Planeta de los Libros",
+          "module": "Módulo 3 · Conceptos"
+        },
+        "garden": {
+          "name": "Jardín de Palabras",
+          "module": "Módulo 4 · Glosario"
+        },
+        "station": {
+          "name": "Estación de las Estrellas",
+          "module": "Módulo 5 · Retos"
+        },
+        "planet": {
+          "name": "Mi Propio Planeta",
+          "module": "Módulo 6 · Proyecto"
+        }
+      }
+    },
+    "fox": {
+      "quote": "«Hola, viajero de las palabras. Aquí los caminos se dibujan con historias, y cada libro es una puerta a un planeta distinto. ¿Estás listo para despegar?»"
+    },
+    "footer": {
+      "text": "EVA — Entre Mundos · Un ambiente virtual de aprendizaje inspirado en El Principito"
+    }
+  }
+}

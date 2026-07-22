@@ -8,7 +8,7 @@ import { APP_NAME, APP_DESCRIPTION } from "@/lib/env";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
-
+import { Analytics } from "@vercel/analytics/next";
 const inter = Inter({
   subsets: ["latin"],
 });
@@ -45,6 +45,7 @@ export default async function RootLayout({ children, params }: Props) {
     >
       <body className={cn(inter.className, "min-h-full flex flex-col")}>
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <Analytics />
       </body>
     </html>
   );

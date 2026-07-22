@@ -60,6 +60,20 @@ export const MODULE_CONTENT_ES: ModuleContentMap = {
       blocks: [
         {
           type: "paragraph",
+          text: "Lee la historia de El Principito como una presentación: avanza diapositiva a diapositiva con las flechas, deslizando o con las teclas del teclado.",
+        },
+        {
+          type: "pdf",
+          src: "/docs/history.pdf",
+          title: "Historia de El Principito",
+        },
+      ],
+    },
+    {
+      type: "material",
+      blocks: [
+        {
+          type: "paragraph",
           text: "Guion sugerido para ilustrar panel a panel:",
         },
         {

@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import type { ContentBlock } from "@/lib/module-content";
 import { Lightbulb, Quote as QuoteIcon, Sparkles } from "lucide-react";
 
@@ -13,6 +14,24 @@ import { MatchingActivity } from "./matching-activity";
 import { PlanetsGame } from "./planets-game";
 import { QuizStation } from "./quiz-station";
 import { WordSearch } from "./word-search";
+
+// react-pdf/pdfjs depende de APIs que solo existen en el navegador
+// (DOMMatrix, Canvas, etc.). Nunca debe evaluarse durante el SSR, así
+// que se carga dinámicamente con ssr desactivado en lugar de un
+// import estático.
+const PdfViewer = dynamic(
+  () => import("./pdf-viewer").then((mod) => mod.PdfViewer),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex min-h-88 items-center justify-center rounded-3xl border-2 border-gold/25 bg-night-deep/60 sm:min-h-112">
+        <p className="font-serif text-sm text-sky/70">
+          Preparando diapositivas…
+        </p>
+      </div>
+    ),
+  },
+);
 
 // Same cycling accent palette used across the app (map, module page, quiz,
 // planets game) so numbered items everywhere — including plain reflection
@@ -281,6 +300,9 @@ function BlockRenderer({ block }: { block: ContentBlock }) {
           </p>
         </div>
       );
+
+    case "pdf":
+      return <PdfViewer src={block.src} title={block.title} />;
 
     case "gallery":
       return (

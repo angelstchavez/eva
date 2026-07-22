@@ -94,6 +94,11 @@
             "scene":"El pequeño asteroide B-612 con su volcán, el baobab en miniatura y la rosa bajo su fanal de cristal.",
             "cards":[
                {
+                  "title":"Historia de El Principito",
+                  "type":"material",
+                  "desc":"Lee la historia del libro, diapositiva a diapositiva."
+               },
+               {
                   "title":"Novela gráfica interactiva",
                   "type":"material",
                   "desc":"Una historia para mirar y sentir, panel a panel."

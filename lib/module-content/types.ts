@@ -66,7 +66,8 @@ export type ContentBlock =
       rows: string[][];
     }
   | { type: "gallery"; description: string }
-  | { type: "classification"; items: { title: string; genre: string }[] };
+  | { type: "classification"; items: { title: string; genre: string }[] }
+  | { type: "pdf"; src: string; title?: string };
 
 export type StationContent = {
   type: StationType;

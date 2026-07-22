@@ -94,6 +94,11 @@
         "scene": "The tiny asteroid B-612 with its volcano, the miniature baobab, and the rose beneath its glass globe.",
         "cards": [
           {
+            "title": "History of The Little Prince",
+            "type": "material",
+            "desc": "Read the story of the book, slide by slide."
+          },
+          {
             "title": "Interactive Graphic Novel",
             "type": "material",
             "desc": "A story to see and feel, panel by panel."

@@ -57,7 +57,8 @@
       "quiz": "Assessment",
       "wordsearch": "Word Search",
       "project": "Project",
-      "gallery": "Gallery"
+      "gallery": "Gallery",
+      "bonus": "Fox Bonus"
     },
     "map": {
       "badge": "Your Journey Map",
@@ -111,6 +112,11 @@
             "title": "Reflection Question",
             "type": "reflection",
             "desc": "Think about your own rose."
+          },
+          {
+            "title": "Fox Chapter Questions",
+            "type": "bonus",
+            "desc": "Explore the key chapter episode with the fox."
           }
         ]
       },

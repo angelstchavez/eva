@@ -2,14 +2,24 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "motion/react";
-import { ArrowLeft, ArrowRight, Compass, Sparkles } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { motion, AnimatePresence } from "motion/react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ChevronDown,
+  Compass,
+  Sparkles,
+} from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { useState } from "react";
 
+import { getModuleStations } from "@/lib/module-content";
 import { ModuleId, getModule } from "@/lib/modules-config";
+import { cn } from "@/lib/utils";
 import SiteFooter from "./site-footer";
 import { SiteHeader } from "./site-header";
 import { Starfield } from "./starfield";
+import { StationContent } from "./station-content";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -21,6 +31,8 @@ type ModuleCard = {
 
 export function ModulePage({ id }: { id: ModuleId }) {
   const t = useTranslations("LandingPage");
+  const locale = useLocale();
+  const [openStation, setOpenStation] = useState<number | null>(0);
 
   const { config, prev, next } = getModule(id);
 
@@ -33,6 +45,11 @@ export function ModulePage({ id }: { id: ModuleId }) {
   };
 
   const cards = t.raw(`modules.${id}.cards`) as ModuleCard[];
+  const stations = getModuleStations(id, locale);
+
+  function toggleStation(index: number) {
+    setOpenStation((prev) => (prev === index ? null : index));
+  }
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-night">
@@ -126,46 +143,86 @@ export function ModulePage({ id }: { id: ModuleId }) {
             </div>
           </motion.div>
 
-          {/* Stations / cards */}
+          {/* Stations */}
           <div className="mt-14">
             <h2 className="flex items-center gap-2 font-sans text-2xl font-bold text-cream">
               <Compass className="h-5 w-5 text-gold" aria-hidden />
               {t("module.cardsTitle")}
             </h2>
 
-            <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
-              {cards.map((card, i) => (
-                <motion.article
-                  key={card.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: i * 0.08,
-                    ease,
-                  }}
-                  whileHover={{ y: -6 }}
-                  className="group flex flex-col rounded-3xl border border-gold/15 bg-white/5 p-6 backdrop-blur-sm transition-colors hover:border-gold/40 hover:bg-white/10"
-                >
-                  <span className="self-start rounded-full bg-gold/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-gold">
-                    {t(`types.${card.type}`)}
-                  </span>
+            <div className="mt-6 space-y-4">
+              {cards.map((card, i) => {
+                const station = stations[i];
+                const isOpen = openStation === i;
+                const stationNumber = i + 1;
 
-                  <h3 className="mt-3 font-sans text-xl font-bold text-cream">
-                    {card.title}
-                  </h3>
+                return (
+                  <motion.div
+                    key={card.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.4, delay: i * 0.05, ease }}
+                    className={cn(
+                      "overflow-hidden rounded-3xl border backdrop-blur-sm transition-colors",
+                      isOpen
+                        ? "border-gold/35 bg-white/8"
+                        : "border-gold/15 bg-white/5",
+                    )}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => toggleStation(i)}
+                      aria-expanded={isOpen}
+                      className="flex w-full items-start gap-4 p-5 text-left sm:p-6"
+                    >
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold/20 font-sans text-sm font-bold text-gold">
+                        {stationNumber}
+                      </span>
 
-                  <p className="mt-1 flex-1 font-serif text-sm leading-relaxed text-sky/70">
-                    {card.desc}
-                  </p>
+                      <div className="min-w-0 flex-1">
+                        <span className="rounded-full bg-gold/15 px-3 py-0.5 text-[11px] font-bold uppercase tracking-[0.18em] text-gold">
+                          {t(`types.${card.type}`)}
+                        </span>
 
-                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-gold transition-transform group-hover:translate-x-1">
-                    {t("module.start")}
-                    <ArrowRight className="h-4 w-4" aria-hidden />
-                  </span>
-                </motion.article>
-              ))}
+                        <h3 className="mt-2 font-sans text-lg font-bold text-cream sm:text-xl">
+                          {card.title}
+                        </h3>
+
+                        {!isOpen && (
+                          <p className="mt-1 font-serif text-sm text-sky/70">
+                            {card.desc}
+                          </p>
+                        )}
+                      </div>
+
+                      <ChevronDown
+                        className={cn(
+                          "mt-1 h-5 w-5 shrink-0 text-gold transition-transform duration-300",
+                          isOpen && "rotate-180",
+                        )}
+                        aria-hidden
+                      />
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {isOpen && station && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.35, ease }}
+                          className="overflow-hidden"
+                        >
+                          <div className="border-t border-gold/10 px-5 pb-6 pt-4 sm:px-6 sm:pb-8">
+                            <StationContent blocks={station.blocks} />
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
 

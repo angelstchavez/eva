@@ -57,7 +57,8 @@
          "quiz":"Evaluación",
          "wordsearch":"Sopa de letras",
          "project":"Proyecto",
-         "gallery":"Galería"
+         "gallery":"Galería",
+         "bonus":"Bonus del zorro"
       },
       "map":{
          "badge":"Tu mapa de viaje",
@@ -111,6 +112,11 @@
                   "title":"Pregunta de reflexión",
                   "type":"reflection",
                   "desc":"Piensa en tu propia rosa."
+               },
+               {
+                  "title":"Preguntas del capítulo del zorro",
+                  "type":"bonus",
+                  "desc":"Complementa la exploración del asteroide con el episodio clave de la historia."
                }
             ]
          },
@@ -127,9 +133,9 @@
                   "desc":"El arte de contar historias con palabras."
                },
                {
-                  "title":"Clasificación",
+                  "title":"Clasifica las estrellas literarias",
                   "type":"activity",
-                  "desc":"Ordena las estrellas literarias."
+                  "desc":"Ordena las obras en su constelación correcta."
                }
             ]
          },

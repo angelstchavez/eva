@@ -66,10 +66,12 @@ function StarfieldImpl() {
     };
   }, []);
 
-  const stars = useMemo(() => generateStars(isMobile ? 28 : 70), [isMobile]);
+  // REDUCIDO: menos estrellas en móvil
+  const stars = useMemo(() => generateStars(isMobile ? 12 : 50), [isMobile]);
 
+  // REDUCIDO: sin estrellas fugaces en móvil
   const shooting = useMemo(
-    () => (isMobile ? [] : generateShooting(5)),
+    () => (isMobile ? [] : generateShooting(3)),
     [isMobile],
   );
 
@@ -83,31 +85,28 @@ function StarfieldImpl() {
       <style>{`
         @keyframes sf-twinkle {
           0%,100% {
-            opacity:.25;
+            opacity:.2;
             transform:scale(1);
           }
           50% {
-            opacity:1;
-            transform:scale(1.25);
+            opacity:.8;
+            transform:scale(1.2);
           }
         }
 
         @keyframes sf-shoot {
           0% {
-            transform:translateX(-60px);
+            transform:translateX(-40px);
             opacity:0;
           }
-
           15% {
             opacity:1;
           }
-
           85% {
             opacity:1;
           }
-
           100% {
-            transform:translateX(180px);
+            transform:translateX(120px);
             opacity:0;
           }
         }
@@ -117,7 +116,7 @@ function StarfieldImpl() {
         }
 
         .sf-shoot{
-          animation:sf-shoot 1.6s ease-out var(--delay) infinite;
+          animation:sf-shoot 1.4s ease-out var(--delay) infinite;
           will-change:transform,opacity;
         }
 
@@ -127,57 +126,81 @@ function StarfieldImpl() {
             animation:none!important;
           }
         }
+
+        /* Móvil: estrellas más pequeñas y con menos intensidad */
+        @media (max-width: 768px) {
+          .sf-star {
+            opacity: 0.4 !important;
+          }
+        }
       `}</style>
 
-      {/* Fondo */}
-      <div className="absolute inset-0 bg-linear-to-b from-night-deep via-night to-night-soft" />
+      {/* Fondo - degradado simplificado en móvil */}
+      <div
+        className={cn(
+          "absolute inset-0",
+          isMobile
+            ? "bg-night"
+            : "bg-linear-to-b from-night-deep via-night to-night-soft",
+        )}
+      />
 
       {/* Nebulosas (solo escritorio) */}
       {!isMobile && (
         <>
-          <div className="absolute left-1/4 top-1/4 h-80 w-80 -translate-x-1/2 rounded-full bg-gold/10 blur-3xl" />
-
-          <div className="absolute bottom-1/4 right-1/5 h-96 w-96 rounded-full bg-blue/25 blur-3xl" />
-
-          <div className="absolute left-1/2 top-2/3 h-72 w-72 -translate-x-1/2 rounded-full bg-gold/5 blur-3xl" />
+          <div className="absolute left-1/4 top-1/4 h-72 w-72 -translate-x-1/2 rounded-full bg-gold/8 blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/5 h-80 w-80 rounded-full bg-blue/20 blur-3xl" />
+          <div className="absolute left-1/2 top-2/3 h-64 w-64 -translate-x-1/2 rounded-full bg-gold/4 blur-3xl" />
         </>
       )}
 
-      {/* Estrellas */}
-      {stars.map((star) => (
-        <span
-          key={star.id}
-          className="sf-star absolute rounded-full bg-gold-soft"
-          style={
-            {
-              top: `${star.top}%`,
-              left: `${star.left}%`,
-              width: star.size * 2,
-              height: star.size * 2,
-              "--dur": `${reduceMotion ? 0 : isMobile ? star.duration + 2 : star.duration}s`,
-              "--delay": `${star.delay}s`,
-            } as React.CSSProperties
-          }
-        />
-      ))}
+      {/* Estrellas - solo renderizadas si hay estrellas */}
+      {stars.length > 0 && (
+        <div className="absolute inset-0">
+          {stars.map((star) => (
+            <span
+              key={star.id}
+              className="sf-star absolute rounded-full bg-gold-soft"
+              style={
+                {
+                  top: `${star.top}%`,
+                  left: `${star.left}%`,
+                  width: isMobile ? star.size : star.size * 2,
+                  height: isMobile ? star.size : star.size * 2,
+                  "--dur": `${reduceMotion ? 0 : isMobile ? star.duration + 3 : star.duration}s`,
+                  "--delay": `${star.delay}s`,
+                } as React.CSSProperties
+              }
+            />
+          ))}
+        </div>
+      )}
 
-      {/* Fugaces (solo escritorio) */}
-      {!reduceMotion &&
-        shooting.map((shoot) => (
-          <span
-            key={shoot.id}
-            className="sf-shoot absolute h-px w-24 rounded-full bg-linear-to-r from-transparent via-gold-soft to-transparent"
-            style={
-              {
-                top: `${shoot.top}%`,
-                left: `${shoot.left}%`,
-                "--delay": `${shoot.delay}s`,
-              } as React.CSSProperties
-            }
-          />
-        ))}
+      {/* Fugaces (solo escritorio y sin reducción de movimiento) */}
+      {!isMobile && !reduceMotion && shooting.length > 0 && (
+        <div className="absolute inset-0">
+          {shooting.map((shoot) => (
+            <span
+              key={shoot.id}
+              className="sf-shoot absolute h-px w-16 rounded-full bg-linear-to-r from-transparent via-gold-soft to-transparent"
+              style={
+                {
+                  top: `${shoot.top}%`,
+                  left: `${shoot.left}%`,
+                  "--delay": `${shoot.delay}s`,
+                } as React.CSSProperties
+              }
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
+}
+
+// Función cn para evitar dependencia externa
+function cn(...classes: (string | boolean | undefined)[]) {
+  return classes.filter(Boolean).join(" ");
 }
 
 export const Starfield = memo(StarfieldImpl);

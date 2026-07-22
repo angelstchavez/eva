@@ -74,30 +74,34 @@ export const MODULE_CONTENT_ES: ModuleContentMap = {
       blocks: [
         {
           type: "paragraph",
-          text: "Guion sugerido para ilustrar panel a panel:",
+          text: "El Principito",
         },
         {
           type: "panels",
           panels: [
             {
               label: "Panel 1",
-              text: "Un pequeño planeta, casi del tamaño de una casa. En él vive un niño con una bufanda y el cabello dorado como el trigo.",
+              text: "Un aviador se encuentra perdido en el desierto del Sahara después de que su avión sufriera una avería. Mientras intenta repararlo, una voz pequeña le pide: '¡Dibújame un cordero!'. Así conoce al principito, un niño de cabello dorado que llegó de otro planeta.",
             },
             {
               label: "Panel 2",
-              text: "El niño riega tres pequeños volcanes (dos activos, uno apagado) y arranca, todos los días, los brotes de un árbol peligroso: el baobab. Si no lo hace a tiempo, las raíces pueden partir el planeta en pedazos.",
+              text: "El principito cuenta que viene del asteroide B-612, un planeta del tamaño de una casa. Allí tiene tres volcanes que limpia todas las mañanas y una rosa única y hermosa que cuida con esmero, aunque a veces se queja y es vanidosa.",
             },
             {
               label: "Panel 3",
-              text: "Un día, brota una flor distinta a todas las demás: una rosa hermosa, orgullosa y un poco quejumbrosa, que pide un fanal de cristal para protegerse del frío y del viento.",
+              text: "El principito decide viajar por el universo para conocer otros planetas. Visita seis asteroides, cada uno habitado por un adulto con un defecto: el Rey que manda sin súbditos, el Vanidoso que busca admiración, el Bebedor que bebe por vergüenza, el Hombre de Negocios que cuenta estrellas, el Farolero que obedece sin cuestionar y el Geógrafo que nunca explora.",
             },
             {
               label: "Panel 4",
-              text: "El principito la cuida con dedicación... pero también se cansa de sus caprichos. Un día decide partir a conocer el universo, dejando atrás a su rosa.",
+              text: "Finalmente llega a la Tierra, donde encuentra un jardín con miles de rosas iguales a la suya. Esto lo entristece porque creía que su rosa era única. Entonces aparece el zorro, quien le enseña el significado de 'domesticar': crear vínculos especiales que hacen únicas a las personas y cosas. El zorro le regala su secreto: 'Lo esencial es invisible a los ojos'.",
+            },
+            {
+              label: "Panel 5",
+              text: "El principito comprende que su rosa es única porque le dedicó tiempo y cuidado. Decide regresar a su asteroide para protegerla. Antes de irse, el aviador repara su avión y el principito lo despide, dejándole el regalo de haber aprendido a ver con el corazón.",
             },
           ],
           footer:
-            "Así comienza el viaje del principito por distintos planetas, hasta llegar a la Tierra, donde conocerá a un aviador... y a un zorro.",
+            "Así termina el viaje del principito: un recorrido por el universo en busca de amistad, amor y el verdadero significado de lo esencial.",
         },
       ],
     },
@@ -116,6 +120,7 @@ export const MODULE_CONTENT_ES: ModuleContentMap = {
             "¿Qué pide la rosa para protegerse?",
             "¿Por qué crees que el principito decide dejar su planeta?",
           ],
+          placeholder: "Escribe tu respuesta aquí...",
         },
       ],
     },
@@ -165,6 +170,7 @@ export const MODULE_CONTENT_ES: ModuleContentMap = {
           questions: [
             '¿Cuál es tu "rosa"? Puede ser una persona, una mascota, un lugar o incluso una afición. ¿Qué haces tú, como el principito, para cuidarla?',
           ],
+          placeholder: "Escribe tu reflexión aquí...",
         },
       ],
     },
@@ -185,6 +191,7 @@ export const MODULE_CONTENT_ES: ModuleContentMap = {
             "Después de hablar con el zorro, ¿qué responsabilidad tiene ahora el principito con su rosa?",
             "Si tú fueras el zorro, ¿qué otro secreto le habrías compartido al principito antes de despedirse?",
           ],
+          placeholder: "Escribe tus respuestas aquí...",
         },
       ],
     },
@@ -284,7 +291,10 @@ export const MODULE_CONTENT_ES: ModuleContentMap = {
               title: "Una obra de teatro con diálogos y acotaciones",
               genre: "Dramático",
             },
-            { title: "Una fábula sobre un zorro y un cuervo", genre: "Narrativo" },
+            {
+              title: "Una fábula sobre un zorro y un cuervo",
+              genre: "Narrativo",
+            },
             { title: "Una canción que expresa nostalgia", genre: "Lírico" },
             {
               title: "Un guion de comedia para representar en el colegio",
@@ -297,6 +307,7 @@ export const MODULE_CONTENT_ES: ModuleContentMap = {
           questions: [
             '¿Por qué crees que El Principito se lee "como una aventura" y no "como un poema", aunque tenga frases muy poéticas?',
           ],
+          placeholder: "Escribe tu respuesta aquí...",
         },
       ],
     },
@@ -340,7 +351,8 @@ export const MODULE_CONTENT_ES: ModuleContentMap = {
             {
               emoji: "🪻",
               term: "Personaje",
-              definition: "Quien vive y protagoniza los hechos de una historia.",
+              definition:
+                "Quien vive y protagoniza los hechos de una historia.",
             },
             {
               emoji: "🌸",
@@ -374,7 +386,11 @@ export const MODULE_CONTENT_ES: ModuleContentMap = {
         {
           type: "matching",
           pairs: [
-            { id: 1, term: "Narrador", definition: "La voz que cuenta la historia" },
+            {
+              id: 1,
+              term: "Narrador",
+              definition: "La voz que cuenta la historia",
+            },
             {
               id: 2,
               term: "Trama",
@@ -404,7 +420,7 @@ export const MODULE_CONTENT_ES: ModuleContentMap = {
       blocks: [
         {
           type: "paragraph",
-          text: "Escribe un texto breve (5 a 8 líneas) usando al menos 4 palabras del glosario (narrador, trama, domesticar, personaje, esencial, novela, prosa). Puedes contar una historia inventada, o escribir sobre algo que hayas \"domesticado\" en tu propia vida.",
+          text: 'Escribe un texto breve (5 a 8 líneas) usando al menos 4 palabras del glosario (narrador, trama, domesticar, personaje, esencial, novela, prosa). Puedes contar una historia inventada, o escribir sobre algo que hayas "domesticado" en tu propia vida.',
         },
         {
           type: "questions",
@@ -418,7 +434,7 @@ export const MODULE_CONTENT_ES: ModuleContentMap = {
       blocks: [
         {
           type: "paragraph",
-          text: "Busca las siguientes 10 palabras en la sopa de letras estelar (horizontal, vertical y diagonal):",
+          text: "Busca las siguientes 7 palabras en la sopa de letras estelar (horizontal, vertical y diagonal):",
         },
         {
           type: "wordsearch",
@@ -645,6 +661,7 @@ export const MODULE_CONTENT_ES: ModuleContentMap = {
             "¿Qué relación encuentras entre la estructura de la novela (varios planetas, varios personajes) y el mensaje final de la obra?",
             "Comparado con el género lírico o el dramático, ¿de qué manera el género narrativo te permite conocer con más profundidad la psicología de un personaje como el principito?",
           ],
+          placeholder: "Escribe tus respuestas aquí...",
         },
       ],
     },
@@ -662,6 +679,7 @@ export const MODULE_CONTENT_ES: ModuleContentMap = {
             '¿Qué "vínculos" consideras que son los más importantes en tu propia vida, y qué responsabilidad implican, según lo que aprendiste del zorro?',
             "Si tuvieras que recomendarle El Principito a un amigo en una sola frase, ¿cuál sería?",
           ],
+          placeholder: "Escribe tu reflexión aquí...",
         },
       ],
     },

@@ -1,58 +1,165 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { Check, RotateCcw } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+
+const ease = [0.22, 1, 0.36, 1] as const;
 
 type ExplorationCardsProps = {
   items: { emoji: string; title: string; text: string }[];
 };
 
+// Same cycling accent palette used across the map, module page, quiz, and
+// planets game, so a card's identity marker looks familiar wherever a kid
+// encounters it in the app.
+const ACCENTS = [
+  { bg: "bg-gold/25", text: "text-gold", ring: "ring-gold/40" },
+  { bg: "bg-sky/25", text: "text-sky", ring: "ring-sky/40" },
+  { bg: "bg-rose-300/25", text: "text-rose-200", ring: "ring-rose-300/40" },
+  {
+    bg: "bg-emerald-300/25",
+    text: "text-emerald-200",
+    ring: "ring-emerald-300/40",
+  },
+];
+
 export function ExplorationCards({ items }: ExplorationCardsProps) {
   const [active, setActive] = useState<number | null>(null);
+  // "seen" only ever grows, so a card keeps its checkmark even after a kid
+  // closes it to open another one — same pattern as the planets and flowers.
+  const [seen, setSeen] = useState<Set<number>>(new Set());
+
+  const allSeen = useMemo(
+    () => items.length > 0 && seen.size >= items.length,
+    [items.length, seen],
+  );
+
+  function toggle(i: number) {
+    setActive((prev) => (prev === i ? null : i));
+    setSeen((prev) => new Set(prev).add(i));
+  }
+
+  function startOver() {
+    setActive(null);
+    setSeen(new Set());
+  }
 
   return (
-    <div className="grid gap-4 sm:grid-cols-3">
-      {items.map((item, i) => (
-        <motion.button
-          key={item.title}
-          type="button"
-          onClick={() => setActive(active === i ? null : i)}
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
-          className={cn(
-            "flex flex-col items-center rounded-2xl border p-5 text-center transition-colors",
-            active === i
-              ? "border-gold/50 bg-gold/15"
-              : "border-gold/20 bg-white/5 hover:border-gold/35 hover:bg-white/10",
-          )}
-        >
-          <span className="text-4xl" role="img" aria-hidden>
-            {item.emoji}
-          </span>
-          <span className="mt-3 font-sans text-base font-bold text-cream">
-            {item.title}
-          </span>
-          <AnimatePresence>
-            {active === i && (
-              <motion.p
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="mt-3 font-serif text-sm leading-relaxed text-sky/80"
+    <div className="space-y-4">
+      {items.length > 1 && (
+        <div className="flex justify-end">
+          <div className="flex items-center gap-1.5 rounded-full border border-gold/20 bg-white/5 px-3 py-1.5">
+            {items.map((_, i) => (
+              <span
+                key={i}
+                className={cn(
+                  "h-2.5 w-2.5 rounded-full transition-colors",
+                  seen.has(i) ? "bg-gold" : "bg-sky/25",
+                )}
+                aria-hidden
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="grid gap-4 sm:grid-cols-3">
+        {items.map((item, i) => {
+          const isOpen = active === i;
+          const isSeen = seen.has(i);
+          const accent = ACCENTS[i % ACCENTS.length];
+
+          return (
+            <motion.button
+              key={item.title}
+              type="button"
+              onClick={() => toggle(i)}
+              aria-expanded={isOpen}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className={cn(
+                "relative flex min-h-40 flex-col items-center rounded-2xl border-2 p-5 text-center transition-colors sm:p-6",
+                isOpen
+                  ? "border-gold/50 bg-gold/15"
+                  : "border-gold/20 bg-white/5 hover:border-gold/35 hover:bg-white/10",
+              )}
+            >
+              {isSeen && !isOpen && (
+                <span className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-400/25 text-emerald-200">
+                  <Check className="h-3.5 w-3.5" aria-hidden />
+                </span>
+              )}
+
+              <span
+                className={cn(
+                  "flex h-9 w-9 items-center justify-center rounded-full text-sm font-extrabold ring-2",
+                  accent.bg,
+                  accent.text,
+                  accent.ring,
+                )}
+                aria-hidden
               >
-                {item.text}
-              </motion.p>
-            )}
-          </AnimatePresence>
-          {active !== i && (
-            <span className="mt-2 text-xs font-bold text-gold">
-              Toca para descubrir
-            </span>
-          )}
-        </motion.button>
-      ))}
+                {i + 1}
+              </span>
+
+              <span className="mt-3 text-5xl" role="img" aria-hidden>
+                {item.emoji}
+              </span>
+              <span className="mt-3 font-sans text-lg font-bold text-cream">
+                {item.title}
+              </span>
+
+              <AnimatePresence>
+                {isOpen && (
+                  <motion.p
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3, ease }}
+                    className="mt-3 font-serif text-base leading-relaxed text-sky/85"
+                  >
+                    {item.text}
+                  </motion.p>
+                )}
+              </AnimatePresence>
+
+              {!isOpen && (
+                <span className="mt-2 font-sans text-sm font-bold text-gold">
+                  Toca para descubrir
+                </span>
+              )}
+            </motion.button>
+          );
+        })}
+      </div>
+
+      <AnimatePresence>
+        {allSeen && items.length > 1 && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            className="flex flex-col items-center gap-3 rounded-2xl border-2 border-gold/30 bg-gold/10 p-5 text-center"
+          >
+            <p className="font-sans text-lg font-bold text-gold">
+              ¡Descubriste todo! ✨
+            </p>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={startOver}
+              className="rounded-full border-gold/30 px-6 py-4 text-gold hover:bg-gold/10"
+            >
+              <RotateCcw className="mr-2 h-4 w-4" aria-hidden />
+              Volver a empezar
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

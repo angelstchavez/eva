@@ -141,42 +141,6 @@ export const MODULE_CONTENT_ES: ModuleContentMap = {
       ],
     },
     {
-      type: "material",
-      blocks: [
-        {
-          type: "paragraph",
-          text: "El Principito",
-        },
-        {
-          type: "panels",
-          panels: [
-            {
-              label: "Panel 1",
-              text: "Un aviador se encuentra perdido en el desierto del Sahara después de que su avión sufriera una avería. Mientras intenta repararlo, una voz pequeña le pide: '¡Dibújame un cordero!'. Así conoce al principito, un niño de cabello dorado que llegó de otro planeta.",
-            },
-            {
-              label: "Panel 2",
-              text: "El principito cuenta que viene del asteroide B-612, un planeta del tamaño de una casa. Allí tiene tres volcanes que limpia todas las mañanas y una rosa única y hermosa que cuida con esmero, aunque a veces se queja y es vanidosa.",
-            },
-            {
-              label: "Panel 3",
-              text: "El principito decide viajar por el universo para conocer otros planetas. Visita seis asteroides, cada uno habitado por un adulto con un defecto: el Rey que manda sin súbditos, el Vanidoso que busca admiración, el Bebedor que bebe por vergüenza, el Hombre de Negocios que cuenta estrellas, el Farolero que obedece sin cuestionar y el Geógrafo que nunca explora.",
-            },
-            {
-              label: "Panel 4",
-              text: "Finalmente llega a la Tierra, donde encuentra un jardín con miles de rosas iguales a la suya. Esto lo entristece porque creía que su rosa era única. Entonces aparece el zorro, quien le enseña el significado de 'domesticar': crear vínculos especiales que hacen únicas a las personas y cosas. El zorro le regala su secreto: 'Lo esencial es invisible a los ojos'.",
-            },
-            {
-              label: "Panel 5",
-              text: "El principito comprende que su rosa es única porque le dedicó tiempo y cuidado. Decide regresar a su asteroide para protegerla. Antes de irse, el aviador repara su avión y el principito lo despide, dejándole el regalo de haber aprendido a ver con el corazón.",
-            },
-          ],
-          footer:
-            "Así termina el viaje del principito: un recorrido por el universo en busca de amistad, amor y el verdadero significado de lo esencial.",
-        },
-      ],
-    },
-    {
       type: "activity",
       blocks: [
         {

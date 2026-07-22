@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import {
@@ -135,7 +134,7 @@ export function GraphicNovel({ slides, title }: GraphicNovelProps) {
         <div className="relative">
           <div className="grid md:grid-cols-2">
             {/* Illustration */}
-            <div className="relative aspect-4/3 overflow-hidden bg-night md:aspect-auto md:min-h-[26rem]">
+            <div className="relative aspect-4/3 overflow-hidden bg-night md:aspect-auto md:min-h-104">
               <AnimatePresence mode="popLayout" custom={direction} initial={false}>
                 <motion.img
                   key={slide.image}

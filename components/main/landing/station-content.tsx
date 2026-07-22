@@ -10,6 +10,7 @@ import { ClassificationCards } from "./classification-cards";
 import { ComicPanels } from "./comic-panels";
 import { ExplorationCards } from "./exploration-cards";
 import { GlossaryFlowers } from "./glossary-flowers";
+import { GraphicNovel } from "./graphic-novel";
 import { MatchingActivity } from "./matching-activity";
 import { PlanetsGame } from "./planets-game";
 import { QuizStation } from "./quiz-station";
@@ -303,6 +304,9 @@ function BlockRenderer({ block }: { block: ContentBlock }) {
 
     case "pdf":
       return <PdfViewer src={block.src} title={block.title} />;
+
+    case "story":
+      return <GraphicNovel slides={block.slides} title={block.title} />;
 
     case "gallery":
       return (

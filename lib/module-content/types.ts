@@ -67,7 +67,18 @@ export type ContentBlock =
     }
   | { type: "gallery"; description: string }
   | { type: "classification"; items: { title: string; genre: string }[] }
-  | { type: "pdf"; src: string; title?: string };
+  | { type: "pdf"; src: string; title?: string }
+  | {
+      type: "story";
+      title?: string;
+      slides: {
+        image: string;
+        alt: string;
+        chapter: string;
+        heading: string;
+        text: string;
+      }[];
+    };
 
 export type StationContent = {
   type: StationType;
